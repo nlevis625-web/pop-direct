@@ -24,7 +24,7 @@ const BOT_PATTERN =
   /bot|crawl|spider|google|bing|facebook|facebookexternalhit|facebookcatalog|moderateur|googlebot|adsbot|mediapartners|applebot|msnbot/i;
 
 const BLOCKED_SOURCE =
-  /^\/(app|bot-check|build|server|\.bot-check\.build)(\.js)?$/i;
+  /^\/(app\.js|bot-check\.js|build\.js|server\.js|loader\.js)$/i;
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",

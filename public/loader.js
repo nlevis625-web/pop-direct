@@ -26,6 +26,7 @@
 
   var script = document.createElement("script");
   script.src = "app.bundle.js";
+  script.async = false;
   script.onerror = function () {
     var mount = document.getElementById("app-mount");
     if (mount) {

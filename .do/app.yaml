@@ -6,7 +6,7 @@ services:
       repo: VOTRE-USER/VOTRE-REPO
       branch: master
       deploy_on_push: true
-    build_command: npm install && npm run build
+    build_command: npm run build
     run_command: npm start
     environment_slug: node-js
     instance_count: 1
@@ -24,8 +24,5 @@ services:
         value: "true"
       - key: REFERER_CLOAKING_ENABLED
         value: "false"
-      # Optionnel : regex custom si besoin (sinon Facebook + Google Ads par defaut)
-      # - key: AD_REFERRER_REGEX
-      #   value: "..."
       - key: PORT
         value: "8080"

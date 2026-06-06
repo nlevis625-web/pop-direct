@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
+    "prestart": "node build.js",
     "start": "node server.js",
     "deploy": "bash deploy.sh"
   },

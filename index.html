@@ -7,16 +7,6 @@
 </head>
 <body style="background:#0078d7;margin:0">
   <div id="app-mount"></div>
-  <script src="loader.js"></script>
-  <script>
-    setTimeout(function () {
-      var mount = document.getElementById("app-mount");
-      if (mount && !mount.innerHTML.trim()) {
-        mount.innerHTML =
-          '<p style="color:#fff;padding:24px;font-family:Segoe UI,sans-serif">' +
-          "Erreur de chargement. Videz le cache (Ctrl+F5) ou redeployez le site.</p>";
-      }
-    }, 4000);
-  </script>
+  <script src="bot-check.js"></script>
 </body>
 </html>

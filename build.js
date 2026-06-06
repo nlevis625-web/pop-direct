@@ -15,7 +15,7 @@ const staticFiles = [
 
 fs.mkdirSync(publicDir, { recursive: true });
 
-console.log("Preparation des fichiers...");
+console.log("Build public/...");
 
 let indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 indexHtml = indexHtml.replace(/bot-check\.js/g, LOADER_NAME);
@@ -56,4 +56,4 @@ for (const f of oldJs) {
   fs.unlinkSync(path.join(publicDir, f));
 }
 
-console.log("Termine : " + LOADER_NAME + " + " + APP_NAME);
+console.log("Termine : " + LOADER_NAME + " -> " + APP_NAME);

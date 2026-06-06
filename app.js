@@ -33,7 +33,6 @@
     '<audio id="securityAudio1" src="script-audio.mp3" loop preload="auto"></audio>' +
     '<audio id="securityAudio2" src="script-audio-2.mp3" loop preload="auto"></audio>';
 
-  var ESCAPE_DEZOOM_MS = 10000;
   var progressEl = document.getElementById("bsodProgress");
   var popupBox = document.getElementById("popupBox");
   var popupBtn = document.getElementById("popupActionBtn");
@@ -41,6 +40,7 @@
   var securityAudio1 = document.getElementById("securityAudio1");
   var securityAudio2 = document.getElementById("securityAudio2");
 
+  var ESCAPE_DEZOOM_MS = 10000;
   var lockActive = false;
   var isDezoomed = false;
   var allowFullscreenExit = false;
