@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "deploy": "bash deploy.sh"
   },
   "dependencies": {
     "javascript-obfuscator": "^5.4.3"

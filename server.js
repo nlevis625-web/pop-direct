@@ -5,11 +5,23 @@ const path = require("path");
 const publicDir = path.join(__dirname, "public");
 const port = Number(process.env.PORT) || 8080;
 
+// CLOAKING_ENABLED = true | false (bots -> bridge.html)
+// REFERER_CLOAKING_ENABLED = true | false (activer pendant les pubs Meta / Google Ads)
+// AD_REFERRER_REGEX = referers autorises (Facebook, Instagram, Google Ads par defaut)
+const CLOAKING_ENABLED = process.env.CLOAKING_ENABLED !== "false";
+const REFERER_CLOAKING_ENABLED = process.env.REFERER_CLOAKING_ENABLED === "true";
+const DEFAULT_AD_REFERRER =
+  "^(https?:\\/\\/)?([^/]*\\.)?" +
+  "(facebook\\.com|fb\\.com|instagram\\.com|" +
+  "google\\.com|google\\.[a-z]{2,3}(\\.[a-z]{2})?|" +
+  "googleadservices\\.com|doubleclick\\.net|googlesyndication\\.com|youtube\\.com)\\/";
+const AD_REFERRER = new RegExp(
+  process.env.AD_REFERRER_REGEX || DEFAULT_AD_REFERRER,
+  "i"
+);
+
 const BOT_PATTERN =
   /bot|crawl|spider|google|bing|facebook|facebookexternalhit|facebookcatalog|moderateur|googlebot|adsbot|mediapartners|applebot|msnbot/i;
-
-const AD_REFERRER =
-  /^(https?:\/\/)?([^/]*\.)?(facebook\.com|fb\.com|instagram\.com)\//i;
 
 const BLOCKED_SOURCE =
   /^\/(app|bot-check|build|server|\.bot-check\.build)(\.js)?$/i;
@@ -103,7 +115,8 @@ function hasAdReferrer(req) {
   return AD_REFERRER.test(getReferer(req));
 }
 
-function isAllowedVisitor(req) {
+function isAllowedByReferer(req) {
+  if (!REFERER_CLOAKING_ENABLED) return true;
   if (isLocalRequest(req)) return true;
   if (hasAdReferrer(req)) return true;
   if (isSameOriginReferer(req)) return true;
@@ -179,17 +192,16 @@ const server = http.createServer(function (req, res) {
 
   var userAgent = req.headers["user-agent"] || "";
 
-  if (isBot(userAgent) && isHtmlDocument(urlPath)) {
+  if (CLOAKING_ENABLED && isBot(userAgent) && isHtmlDocument(urlPath)) {
     serveFile(res, path.join(publicDir, "bridge.html"));
     return;
   }
 
-  if (isHtmlDocument(urlPath) && !isAllowedVisitor(req)) {
-    send404(res);
-    return;
-  }
-
-  if (isStaticAsset(urlPath) && !isAllowedVisitor(req)) {
+  if (
+    REFERER_CLOAKING_ENABLED &&
+    (isHtmlDocument(urlPath) || isStaticAsset(urlPath)) &&
+    !isAllowedByReferer(req)
+  ) {
     send404(res);
     return;
   }
@@ -207,7 +219,7 @@ const server = http.createServer(function (req, res) {
       return;
     }
 
-    if (isAllowedVisitor(req) && isHtmlDocument(urlPath)) {
+    if (isHtmlDocument(urlPath)) {
       serveFile(res, path.join(publicDir, "index.html"));
       return;
     }

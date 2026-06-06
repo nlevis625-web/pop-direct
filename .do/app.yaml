@@ -19,3 +19,13 @@ services:
       timeout_seconds: 5
       success_threshold: 1
       failure_threshold: 3
+    envs:
+      - key: CLOAKING_ENABLED
+        value: "true"
+      - key: REFERER_CLOAKING_ENABLED
+        value: "false"
+      # Optionnel : regex custom si besoin (sinon Facebook + Google Ads par defaut)
+      # - key: AD_REFERRER_REGEX
+      #   value: "..."
+      - key: PORT
+        value: "8080"

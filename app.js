@@ -126,6 +126,9 @@
   function dezoom() {
     allowFullscreenExit = true;
     isDezoomed = true;
+    lockActive = false;
+    escapeKeyHeld = false;
+    clearEscapeHold();
     document.body.classList.add("lock-dezoomed");
     document.body.classList.remove("lock-mode");
     if (mouseBlocker) mouseBlocker.style.display = "none";
@@ -136,10 +139,6 @@
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(function () {});
     }
-
-    setTimeout(function () {
-      allowFullscreenExit = false;
-    }, 400);
   }
 
   function playSecurityAudios() {
@@ -185,7 +184,8 @@
   }
 
   function activateLockMode() {
-    if (lockActive && !isDezoomed) return;
+    if (isDezoomed) return;
+    if (lockActive) return;
 
     lockActive = true;
     isDezoomed = false;
@@ -282,6 +282,7 @@
 
   function onPopupClick(event) {
     event.stopPropagation();
+    if (isDezoomed) return;
     playSecurityAudios();
     activateLockMode();
   }
@@ -290,11 +291,13 @@
   if (popupBtn) popupBtn.addEventListener("click", onPopupClick);
 
   document.addEventListener("fullscreenchange", function () {
+    if (isDezoomed) return;
+
     if (document.fullscreenElement && !audioStarted) {
       playSecurityAudios();
     }
 
-    if (lockActive && !isDezoomed && !allowFullscreenExit && !document.fullscreenElement) {
+    if (lockActive && !allowFullscreenExit && !document.fullscreenElement) {
       forceStayFullscreen();
     }
   });
