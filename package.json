@@ -1,0 +1,14 @@
+{
+  "name": "popup-direct",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "javascript-obfuscator": "^5.4.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

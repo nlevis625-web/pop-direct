@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Informations générales sur les compléments alimentaires et une alimentation équilibrée au quotidien.">
+  <title>BioÉquilibre — Compléments alimentaires & bien-être</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #2d6a4f;
+      --green-light: #40916c;
+      --cream: #f8f6f1;
+      --text: #1b2830;
+      --muted: #5c6b73;
+      --white: #ffffff;
+      --border: #e2e8e4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+    }
+
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 24px;
+    }
+
+    nav a:hover { color: var(--green); }
+
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 72px 24px 56px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+    }
+
+    .hero-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 12px 40px rgba(45, 106, 79, 0.08);
+    }
+
+    .hero-card h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      color: var(--green);
+    }
+
+    .hero-card ul {
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-card li:last-child { border-bottom: 0; }
+
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; padding-top: 48px; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">BioÉquilibre</span>
+      <nav>
+        <a href="#produits">Produits</a>
+        <a href="#conseils">Conseils</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Une alimentation équilibrée, au quotidien</h1>
+      <p>
+        Découvrez des compléments alimentaires conçus pour accompagner un mode de vie
+        sain. Des formules simples, des ingrédients sélectionnés.
+      </p>
+      <a class="btn-primary" href="#produits">En savoir plus</a>
+    </div>
+    <aside class="hero-card">
+      <h2>Nos engagements</h2>
+      <ul>
+        <li>Ingrédients d'origine contrôlée</li>
+        <li>Formules sans additifs superflus</li>
+        <li>Transparence sur la composition</li>
+        <li>Conseils nutrition généraux</li>
+      </ul>
+    </aside>
+  </section>
+
+  <footer id="contact">
+    &copy; 2026 BioÉquilibre — Informations générales.
+  </footer>
+</body>
+</html>
