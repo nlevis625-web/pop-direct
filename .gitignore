@@ -1,2 +1,4 @@
 node_modules/
 .bot-check.build.js
+public/loader.js
+public/app.bundle.js
