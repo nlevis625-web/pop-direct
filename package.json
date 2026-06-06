@@ -6,9 +6,6 @@
     "start": "node server.js",
     "deploy": "bash deploy.sh"
   },
-  "dependencies": {
-    "javascript-obfuscator": "^5.4.3"
-  },
   "engines": {
     "node": ">=18"
   }

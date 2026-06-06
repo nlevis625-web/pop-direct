@@ -25,7 +25,7 @@
   document.head.appendChild(style);
 
   var script = document.createElement("script");
-  script.src = "__APP_BUNDLE__";
+  script.src = "app.bundle.js";
   script.onerror = function () {
     var mount = document.getElementById("app-mount");
     if (mount) {
