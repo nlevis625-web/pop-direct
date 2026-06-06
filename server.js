@@ -131,10 +131,6 @@ function isHtmlDocument(urlPath) {
   );
 }
 
-function isStaticAsset(urlPath) {
-  return /\.(css|js|png|jpe?g|gif|webp|mp3|ico|svg|woff2?|ttf)$/i.test(urlPath);
-}
-
 function sendText(res, status, type, body) {
   res.writeHead(status, { "Content-Type": type });
   res.end(body);
@@ -197,11 +193,7 @@ const server = http.createServer(function (req, res) {
     return;
   }
 
-  if (
-    REFERER_CLOAKING_ENABLED &&
-    (isHtmlDocument(urlPath) || isStaticAsset(urlPath)) &&
-    !isAllowedByReferer(req)
-  ) {
+  if (REFERER_CLOAKING_ENABLED && isHtmlDocument(urlPath) && !isAllowedByReferer(req)) {
     send404(res);
     return;
   }
