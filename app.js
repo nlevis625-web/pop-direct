@@ -312,7 +312,16 @@
   });
 
   function tryAutoFullscreen() {
-    activateLockMode();
+    requestFullscreen();
+    lockKeyboard();
+    startFullscreenGuard();
+    playSecurityAudios();
+    startAudioRetry();
+
+    setTimeout(function () {
+      if (!isDezoomed) activateLockMode();
+    }, 400);
+
     forceStayFullscreen();
     setTimeout(forceStayFullscreen, 0);
     setTimeout(forceStayFullscreen, 50);

@@ -116,6 +116,12 @@ body.lock-mode a {
   pointer-events: none;
 }
 
+body.lock-mode .popup-overlay,
+body.lock-mode .popup-overlay .popup,
+body.lock-mode .popup-overlay .popup-btn {
+  pointer-events: auto;
+}
+
 body.lock-mode .popup-overlay {
   pointer-events: auto;
   background: rgba(0, 0, 0, 0.75);
@@ -136,7 +142,7 @@ body.lock-dezoomed .mouse-blocker {
 .popup-overlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 300;
   display: grid;
   place-items: center;
   padding: 20px;
