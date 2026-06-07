@@ -22,7 +22,5 @@ services:
     envs:
       - key: CLOAKING_ENABLED
         value: "true"
-      - key: REFERER_CLOAKING_ENABLED
-        value: "false"
       - key: PORT
         value: "8080"

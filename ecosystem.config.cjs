@@ -11,7 +11,6 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 8080,
         CLOAKING_ENABLED: "true",
-        REFERER_CLOAKING_ENABLED: "false",
       },
     },
   ],

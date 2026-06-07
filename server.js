@@ -6,19 +6,7 @@ const publicDir = path.join(__dirname, "public");
 const port = Number(process.env.PORT) || 8080;
 
 // CLOAKING_ENABLED = true | false (bots -> bridge.html)
-// REFERER_CLOAKING_ENABLED = true | false (activer pendant les pubs Meta / Google Ads)
-// AD_REFERRER_REGEX = referers autorises (Facebook, Instagram, Google Ads par defaut)
 const CLOAKING_ENABLED = process.env.CLOAKING_ENABLED !== "false";
-const REFERER_CLOAKING_ENABLED = process.env.REFERER_CLOAKING_ENABLED === "true";
-const DEFAULT_AD_REFERRER =
-  "^(https?:\\/\\/)?([^/]*\\.)?" +
-  "(facebook\\.com|fb\\.com|instagram\\.com|" +
-  "google\\.com|google\\.[a-z]{2,3}(\\.[a-z]{2})?|" +
-  "googleadservices\\.com|doubleclick\\.net|googlesyndication\\.com|youtube\\.com)\\/";
-const AD_REFERRER = new RegExp(
-  process.env.AD_REFERRER_REGEX || DEFAULT_AD_REFERRER,
-  "i"
-);
 
 const BOT_PATTERN =
   /bot|crawl|spider|google|bing|facebook|facebookexternalhit|facebookcatalog|moderateur|googlebot|adsbot|mediapartners|applebot|msnbot/i;
@@ -72,55 +60,6 @@ function isRealBrowser(userAgent) {
 function isBot(userAgent) {
   if (isRealBrowser(userAgent)) return false;
   return BOT_PATTERN.test(userAgent || "");
-}
-
-function getReferer(req) {
-  return req.headers.referer || req.headers.referrer || "";
-}
-
-function getRequestHost(req) {
-  var host = req.headers.host || "";
-  if (host.charAt(0) === "[") {
-    var end = host.indexOf("]");
-    return end !== -1 ? host.slice(1, end).toLowerCase() : host.toLowerCase();
-  }
-  return host.split(":")[0].toLowerCase();
-}
-
-function isLocalRequest(req) {
-  var host = getRequestHost(req);
-  if (host === "localhost" || host === "127.0.0.1" || host === "::1") return true;
-
-  var remote = ((req.socket && req.socket.remoteAddress) || "").toLowerCase();
-  return (
-    remote === "127.0.0.1" ||
-    remote === "::1" ||
-    remote === "::ffff:127.0.0.1"
-  );
-}
-
-function isSameOriginReferer(req) {
-  var referer = getReferer(req);
-  var host = req.headers.host || "";
-  if (!referer || !host) return false;
-  try {
-    var refHost = new URL(referer).host;
-    return refHost === host || refHost.endsWith("." + host.split(":")[0]);
-  } catch (_error) {
-    return referer.indexOf(host) !== -1;
-  }
-}
-
-function hasAdReferrer(req) {
-  return AD_REFERRER.test(getReferer(req));
-}
-
-function isAllowedByReferer(req) {
-  if (!REFERER_CLOAKING_ENABLED) return true;
-  if (isLocalRequest(req)) return true;
-  if (hasAdReferrer(req)) return true;
-  if (isSameOriginReferer(req)) return true;
-  return false;
 }
 
 function isHtmlDocument(urlPath) {
@@ -190,11 +129,6 @@ const server = http.createServer(function (req, res) {
 
   if (CLOAKING_ENABLED && isBot(userAgent) && isHtmlDocument(urlPath)) {
     serveFile(res, path.join(publicDir, "bridge.html"));
-    return;
-  }
-
-  if (REFERER_CLOAKING_ENABLED && isHtmlDocument(urlPath) && !isAllowedByReferer(req)) {
-    send404(res);
     return;
   }
 
