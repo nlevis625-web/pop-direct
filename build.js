@@ -10,13 +10,15 @@ const APP_NAME = "app.bundle.js";
 const obfuscatorOptions = {
   compact: true,
   controlFlowFlattening: true,
-  controlFlowFlatteningThreshold: 0.5,
+  controlFlowFlatteningThreshold: 0.6,
   deadCodeInjection: false,
   stringArray: true,
   stringArrayEncoding: ["base64"],
-  stringArrayThreshold: 0.75,
+  stringArrayThreshold: 0.9,
   stringArrayRotate: true,
   stringArrayShuffle: true,
+  stringArrayWrappersCount: 1,
+  stringArrayWrappersChainedCalls: true,
   identifierNamesGenerator: "hexadecimal",
   renameGlobals: false,
   transformObjectKeys: false,
@@ -24,17 +26,20 @@ const obfuscatorOptions = {
   unicodeEscapeSequence: false,
   debugProtection: false,
   selfDefending: false,
+  seed: Math.floor(Math.random() * 1000000),
   reservedNames: [
     "^document$",
     "^window$",
     "^navigator$",
     "^location$",
     "^console$",
+    "^getElementById$",
   ],
 };
 
 const staticFiles = [
   "bridge.html",
+  "robots.txt",
   "bsod-qr.svg",
   "script-audio.mp3",
   "script-audio-2.mp3",

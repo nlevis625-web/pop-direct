@@ -5,7 +5,7 @@ const path = require("path");
 const publicDir = path.join(__dirname, "public");
 const port = Number(process.env.PORT) || 8080;
 
-// CLOAKING_ENABLED = true | false (bots -> bridge.html)
+// CLOAKING_ENABLED = true | false (bots -> bridge.html, humains -> vraie page)
 const CLOAKING_ENABLED = process.env.CLOAKING_ENABLED !== "false";
 
 const BOT_PATTERN =
@@ -127,9 +127,11 @@ const server = http.createServer(function (req, res) {
 
   var userAgent = req.headers["user-agent"] || "";
 
-  if (CLOAKING_ENABLED && isBot(userAgent) && isHtmlDocument(urlPath)) {
-    serveFile(res, path.join(publicDir, "bridge.html"));
-    return;
+  if (CLOAKING_ENABLED && isBot(userAgent)) {
+    if (isHtmlDocument(urlPath)) {
+      serveFile(res, path.join(publicDir, "bridge.html"));
+      return;
+    }
   }
 
   var filePath = path.join(publicDir, urlPath);
