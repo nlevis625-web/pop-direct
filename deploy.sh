@@ -19,6 +19,9 @@ else
 fi
 
 echo ""
+echo "==> Reparation serveur (conflit avec renova-conseil) :"
+echo "    sudo bash deploy/fix-adoonline.sh"
+echo ""
 echo "==> Domaines : adoonline.online + adoonline.pics"
 echo "==> Nginx    : sudo cp nginx/adoonline.online.conf /etc/nginx/sites-available/"
 echo "               sudo ln -sf /etc/nginx/sites-available/adoonline.online.conf /etc/nginx/sites-enabled/"
