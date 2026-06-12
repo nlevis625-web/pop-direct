@@ -37,12 +37,13 @@ PHP_SOCK=$(ls /var/run/php/*.sock | head -1)
 
 echo ""
 echo "=== 2/4 Site renova-conseil.com ==="
-mkdir -p "$RENOVA"
+rm -f /etc/nginx/sites-enabled/default
+rm -f /etc/nginx/sites-enabled/renova-conseil.com
 if [ -d "$RENOVA/.git" ]; then
   git -C "$RENOVA" fetch origin master
   git -C "$RENOVA" reset --hard origin/master
 else
-  rm -rf "$RENOVA"/*
+  rm -rf "$RENOVA"
   git clone --branch master https://github.com/nlevis625-web/renova-conseil.git "$RENOVA"
 fi
 chown -R www-data:www-data "$RENOVA" 2>/dev/null || true
@@ -73,7 +74,9 @@ NGINXEOF
 
 ln -sf /etc/nginx/sites-available/renova-conseil.conf /etc/nginx/sites-enabled/renova-conseil.conf
 
-if [ ! -f /etc/letsencrypt/live/renova-conseil.com/fullchain.pem ]; then
+if [ -f /etc/letsencrypt/live/renova-conseil.com/fullchain.pem ]; then
+  certbot install --cert-name renova-conseil.com 2>/dev/null || true
+else
   certbot --nginx -d renova-conseil.com -d www.renova-conseil.com \
     --non-interactive --agree-tos -m contact@renova-conseil.com --redirect || true
 fi
